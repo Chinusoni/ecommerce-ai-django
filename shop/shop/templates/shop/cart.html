@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Cart</h2>
+{% if items %}
+  <ul>
+    {% for it in items %}
+      <li>{{ it.product.title }} x{{ it.quantity }} — ₹{{ it.product.price }}</li>
+    {% endfor %}
+  </ul>
+  <p>Total: ₹{{ total }}</p>
+  <a href="{% url 'shop:checkout' %}">Checkout</a>
+{% else %}
+  <p>Your cart is empty</p>
+{% endif %}
+{% endblock %}
