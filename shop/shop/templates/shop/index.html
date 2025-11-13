@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Products</h2>
+<ul>
+  {% for p in products %}
+    <li>
+      <a href="{% url 'shop:product_detail' p.id %}">{{ p.title }}</a> — ₹{{ p.price }}
+      {% if user.is_authenticated %}
+        <button onclick="sendFeedback({{ p.id }}, true)">Like</button>
+        <button onclick="sendFeedback({{ p.id }}, false)">Dislike</button>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+{% if recommendations %}
+  <h3>Recommended for you</h3>
+  <ul>
+    {% for r in recommendations %}
+      <li><a href="{% url 'shop:product_detail' r.id %}">{{ r.title }}</a> — ₹{{ r.price }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}
